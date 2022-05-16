@@ -9,6 +9,8 @@ using std::endl;
 #include <GLFW/glfw3.h>
 
 #include "systeminformation.h"
+#include "scenes/scene.h"
+#include "scenes/basic_scene.h"
 
 class Runner 
 {
@@ -56,11 +58,13 @@ public:
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 	}
 
-	int Run()
+	int Run(Scene& scene)
 	{
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-		MainLoop();
+		scene.Start();
+
+		MainLoop(scene);
 
 		glfwTerminate();
 
@@ -68,12 +72,15 @@ public:
 	}
 
 private:
-	void MainLoop() 
+	void MainLoop(Scene& scene) 
 	{        
 		while( ! glfwWindowShouldClose(window) && !glfwGetKey(window, GLFW_KEY_ESCAPE) ) 
         {
             glfwSwapBuffers(window);
             glfwPollEvents();
+
+			scene.Update();
+			scene.Render();
         }	
 	}
 };

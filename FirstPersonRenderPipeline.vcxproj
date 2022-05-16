@@ -153,9 +153,12 @@
   <ItemGroup>
     <ClCompile Include="glad.c" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\scenes\basic_scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\runner.h" />
+    <ClInclude Include="src\scenes\basic_scene.h" />
+    <ClInclude Include="src\scenes\scene.h" />
     <ClInclude Include="src\systeminformation.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

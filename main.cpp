@@ -3,5 +3,8 @@
 int main()
 {
 	Runner runner = Runner("New Window", 800, 600);
-	return runner.Run();;
+	Scene* base;
+	Basic_Scene derived;
+	base = &derived;
+	return runner.Run(*base);
 }
