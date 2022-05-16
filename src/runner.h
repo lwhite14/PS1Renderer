@@ -62,7 +62,9 @@ public:
 	{
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
+		scene.SetDimensions(fbw, fbh);
 		scene.Start();
+		scene.Resize(fbw, fbh);
 
 		MainLoop(scene);
 

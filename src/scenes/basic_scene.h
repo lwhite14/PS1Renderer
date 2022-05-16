@@ -4,6 +4,9 @@
 
 class Basic_Scene : public Scene
 {
+private:
+	Shader shader;
+
 public:
 	Basic_Scene();
 	void Start();
