@@ -1,6 +1,7 @@
-#include <iostream>
+#include "src/runner.h"
 
-void main() 
+int main()
 {
-	std::cout << "Hello World!" << std::endl;
+	Runner runner = Runner("New Window", 800, 600);
+	return runner.Run();;
 }
