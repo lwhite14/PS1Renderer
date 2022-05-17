@@ -8,13 +8,14 @@ Basic_Scene::Basic_Scene() : cube(1.0f) { }
 void Basic_Scene::Start()
 {
 	glEnable(GL_DEPTH_TEST);
-	shader = Shader("shaders/basic.vert", "shaders/basic.frag");
+	shader = Shader("shaders/basic_textured.vert", "shaders/basic_textured.frag");
 
     tex1 = Texture::LoadTexture("media/images/container.jpg");
     tex2 = Texture::LoadTexture("media/images/awesomeface.png");
 
     shader.Use();
-    shader.SetVec3("Colour", vec3(1.0f, 0.0f, 0.0f));
+    shader.SetInt("Tex1", 0);
+    shader.SetInt("Tex2", 1);
 }
 
 void Basic_Scene::Update()
@@ -27,10 +28,8 @@ void Basic_Scene::Render()
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, tex1);
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, tex2);
+    Texture::BindTexture(GL_TEXTURE0, tex1);
+    Texture::BindTexture(GL_TEXTURE1, tex2);
 
     shader.Use();
 
@@ -48,6 +47,5 @@ void Basic_Scene::Render()
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
 
     shader.SetMat4("projection", projection);
-
     cube.Render();
 }

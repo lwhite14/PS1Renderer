@@ -29,3 +29,9 @@ unsigned char* Texture::LoadPixels(const std::string& filePath, int& width, int&
     unsigned char* data = stbi_load(filePath.c_str(), &width, &height, &bytesPerPix, 4);
     return data;
 }
+
+void Texture::BindTexture(GLuint unit, GLuint texture)
+{
+    glActiveTexture(unit);
+    glBindTexture(GL_TEXTURE_2D, texture);
+}
