@@ -154,13 +154,18 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\scenes\basic_scene.cpp" />
+    <ClCompile Include="src\stb\stb_image.cpp" />
+    <ClCompile Include="src\texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\runner.h" />
     <ClInclude Include="src\scenes\basic_scene.h" />
     <ClInclude Include="src\scenes\scene.h" />
     <ClInclude Include="src\shader.h" />
+    <ClInclude Include="src\stb\stb_image.h" />
+    <ClInclude Include="src\stb\stb_image_write.h" />
     <ClInclude Include="src\systeminformation.h" />
+    <ClInclude Include="src\texture.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\basic.frag" />
