@@ -13,6 +13,6 @@ private:
 public:
 	Basic_Scene();
 	void Start();
-	void Update();
+	void Update(GLFWwindow* window);
 	void Render();
 };

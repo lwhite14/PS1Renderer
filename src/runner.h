@@ -11,21 +11,18 @@ using std::endl;
 #include "systeminformation.h"
 #include "scenes/scene.h"
 #include "scenes/basic_scene.h"
+#include "gui.h"
 
 class Runner 
 {
 private:
+	GUI gui;
 	GLFWwindow* window;
-	string name;
-	int width, height, fbw, fbh;
+	int fbw, fbh;
 
 public:
 	Runner(string name, int width, int height) 
 	{
-		this->name = name;
-		this->width = width;
-		this->height = height;
-
 		if (!glfwInit()) 
 		{
 			exit(EXIT_FAILURE);
@@ -37,7 +34,7 @@ public:
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-		window = glfwCreateWindow(this->width, this->height, this->name.c_str(), NULL, NULL);
+		window = glfwCreateWindow(width, height, name.c_str(), NULL, NULL);
 		if (!window)
 		{
 			cerr << "UNABLE TO CREATE OPENGL CONTEXT" << endl;
@@ -56,6 +53,9 @@ public:
 		SystemInformation::OutputInformation();
 
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+
+		gui = GUI();
+		gui.Init(window);
 	}
 
 	int Run(Scene& scene)
@@ -67,6 +67,8 @@ public:
 		scene.Resize(fbw, fbh);
 
 		MainLoop(scene);
+
+		gui.CleanUp();
 
 		glfwTerminate();
 
@@ -81,8 +83,10 @@ private:
             glfwSwapBuffers(window);
             glfwPollEvents();
 
-			scene.Update();
+			scene.Update(window);
 			scene.Render();
+
+			gui.PerFrame();
         }	
 	}
 };

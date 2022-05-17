@@ -2,7 +2,7 @@
 
 int main()
 {
-	Runner runner = Runner("New Window", 800, 600);
+	Runner runner = Runner("FirstPersonRenderPipeline", 800, 600);
 	Scene* base;
 	Basic_Scene derived;
 	base = &derived;

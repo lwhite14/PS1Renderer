@@ -152,15 +152,35 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="glad.c" />
+    <ClCompile Include="imgui\imgui.cpp" />
+    <ClCompile Include="imgui\imgui_demo.cpp" />
+    <ClCompile Include="imgui\imgui_draw.cpp" />
+    <ClCompile Include="imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="imgui\imgui_tables.cpp" />
+    <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\camera.cpp" />
     <ClCompile Include="src\drawables\cube.cpp" />
+    <ClCompile Include="src\gui.cpp" />
     <ClCompile Include="src\scenes\basic_scene.cpp" />
     <ClCompile Include="src\stb\stb_image.cpp" />
     <ClCompile Include="src\texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="imgui\imconfig.h" />
+    <ClInclude Include="imgui\imgui.h" />
+    <ClInclude Include="imgui\imgui_impl_glfw.h" />
+    <ClInclude Include="imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="imgui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="imgui\imgui_internal.h" />
+    <ClInclude Include="imgui\imstb_rectpack.h" />
+    <ClInclude Include="imgui\imstb_textedit.h" />
+    <ClInclude Include="imgui\imstb_truetype.h" />
+    <ClInclude Include="src\camera.h" />
     <ClInclude Include="src\drawables\cube.h" />
     <ClInclude Include="src\drawables\drawable.h" />
+    <ClInclude Include="src\gui.h" />
     <ClInclude Include="src\runner.h" />
     <ClInclude Include="src\scenes\basic_scene.h" />
     <ClInclude Include="src\scenes\scene.h" />
@@ -176,6 +196,7 @@
     <None Include="shaders\basic.vert" />
     <None Include="shaders\basic_textured.frag" />
     <None Include="shaders\basic_textured.vert" />
+    <None Include="src\motion.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

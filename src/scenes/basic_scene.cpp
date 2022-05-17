@@ -7,6 +7,8 @@ Basic_Scene::Basic_Scene() : cube(1.0f) { }
 
 void Basic_Scene::Start()
 {
+    camera = Camera(width, height, vec3(0.0f, 0.0f, 3.0f));
+
 	glEnable(GL_DEPTH_TEST);
 	shader = Shader("shaders/basic_textured.vert", "shaders/basic_textured.frag");
 
@@ -18,9 +20,12 @@ void Basic_Scene::Start()
     shader.SetInt("Tex2", 1);
 }
 
-void Basic_Scene::Update()
+void Basic_Scene::Update(GLFWwindow* window)
 {
-
+    camera.UpdateDeltaTime();
+    camera.Movement();
+    camera.KeyCallback(window);
+    camera.MouseCallback(window);
 }
 
 void Basic_Scene::Render()
@@ -37,7 +42,7 @@ void Basic_Scene::Render()
     glm::mat4 view = glm::mat4(1.0f);
     glm::mat4 projection = glm::mat4(1.0f);
     model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(0.5f, 1.0f, 0.0f));
-    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+    view = camera.ChangeViewMatrix(view);
     projection = glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f);
 
     unsigned int modelLoc = glGetUniformLocation(shader.ID, "model");

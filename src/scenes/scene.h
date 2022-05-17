@@ -3,18 +3,20 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "../shader.h"
+#include "../camera.h"
 using glm::mat4;
 using glm::vec3;
 
 class Scene 
 {
 public:
+	Camera camera;
 	int width, height;
 	mat4 view, model, projection;
 
-	virtual void Start() {};
-	virtual void Update() {};
-	virtual void Render() {};
+	virtual void Start() = 0;
+	virtual void Update(GLFWwindow* window) = 0;
+	virtual void Render() = 0;
 	void SetMatrices(Shader& shader)
 	{
 		mat4 mv = view * model;
