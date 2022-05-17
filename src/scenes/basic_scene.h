@@ -1,13 +1,14 @@
 #pragma once
 
 #include "scene.h"
+#include "../drawables/cube.h"
 
 class Basic_Scene : public Scene
 {
 private:
 	Shader shader;
 	GLuint tex1, tex2;
-	unsigned int VBO, VAO;
+	Cube cube;
 
 public:
 	Basic_Scene();
