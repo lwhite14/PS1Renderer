@@ -4,6 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "../shader.h"
 #include "../camera.h"
+#include "../glslprogram.h"
 using glm::mat4;
 using glm::vec3;
 
@@ -17,12 +18,12 @@ public:
 	virtual void Start(GLFWwindow* window) = 0;
 	virtual void Update(GLFWwindow* window, float deltaTime) = 0;
 	virtual void Render() = 0;
-	void SetMatrices(Shader& shader)
+	void SetMatrices(GLSLProgram& prog)
 	{
 		mat4 mv = view * model;
-		shader.SetMat4("MVP", projection * mv);
-		shader.SetMat4("ModelViewMatrix", mv);
-		shader.SetMat4("NormalMatrix", glm::mat3(vec3(mv[0]), vec3(mv[1]), vec3(mv[2])));
+		prog.SetUniform("MVP", projection * mv);
+		prog.SetUniform("ModelViewMatrix", mv);
+		prog.SetUniform("NormalMatrix", glm::mat3(vec3(mv[0]), vec3(mv[1]), vec3(mv[2])));
 	}
 	void Resize(float w, float h)
 	{

@@ -13,7 +13,12 @@ void DebugWindow::DrawElements()
 
     ImGui::Begin("Debug", NULL, windowFlags);
     ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
-    ImGui::Text("Press Left Shift to toggle to debug menu");
+    ImGui::Text("Point Light Editor");
+    ImGui::DragFloat3("Position", lightPos, 0.25f, -200.0f, 200.0f);
+    ImGui::DragFloat3("Diffuse", lightDiffuse, 0.01f, 0.0f, 1.0f);
+    ImGui::DragFloat3("Ambient", lightAmbient, 0.01f, 0.0f, 1.0f);
+    ImGui::DragFloat3("Sepcular", lightSpecular, 0.01f, 0.0f, 1.0f);
+    ImGui::Text("Press 'Left Shift' to toggle to this debug menu");
     ImGui::SetWindowPos(ImVec2(0, 0));
     ImGui::SetWindowSize(ImVec2(500, 260));
     ImGui::End();

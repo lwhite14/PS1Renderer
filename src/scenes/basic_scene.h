@@ -3,14 +3,18 @@
 #include "scene.h"
 #include "../drawables/cube.h"
 #include "../debug_window.h"
+#include "../lights/point_light.h"
+#include "../glslprogram.h"
 
 class Basic_Scene : public Scene
 {
 private:
-	Shader shader;
+	DebugWindow debugWindow;
+	GLSLProgram prog;
 	GLuint tex1, tex2;
 	Cube cube;
-	DebugWindow debugWindow;
+
+	PointLight light;
 
 public:
 	Basic_Scene();
