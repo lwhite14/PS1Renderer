@@ -65,7 +65,7 @@ void Basic_Scene::Render()
     view = camera.ChangeViewMatrix(view);
 
     prog.Use();
-    prog.SetUniform("Material.Ka", vec3(0.5f, 0.5f, 0.5f));
+    prog.SetUniform("Material.Ka", vec3(0.5f, 0.35f, 0.35f));
     prog.SetUniform("Material.Kd", vec3(0.85f, 0.85f, 0.85f));
     prog.SetUniform("Material.Ks", vec3(1.0f, 1.0f, 1.0f));
     prog.SetUniform("Material.Shininess", 64.0f);
