@@ -7,9 +7,6 @@ Camera::Camera(unsigned int SCR_WIDTH, unsigned int SCR_HEIGHT, vec3 startPos)
 {
 	isActive = true;
 
-	deltaTime = 0.0f;
-	lastFrame = 0.0f;
-
 	firstMouse = true;
 	canFirstMouse = true;
 	yaw = -90.0f;
@@ -22,13 +19,6 @@ Camera::Camera(unsigned int SCR_WIDTH, unsigned int SCR_HEIGHT, vec3 startPos)
 	cameraPos = startPos;
 	cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 	cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
-}
-
-void Camera::UpdateDeltaTime()
-{
-	float currentFrame = glfwGetTime();
-	deltaTime = currentFrame - lastFrame;
-	lastFrame = currentFrame;
 }
 
 void Camera::KeyCallback(GLFWwindow* window)
@@ -152,7 +142,7 @@ void Camera::MouseCallback(GLFWwindow* window)
 	}
 }
 
-void Camera::Movement()
+void Camera::Movement(float deltaTime)
 {
 	float cameraSpeed = 20.0f * deltaTime;
 	if (motion.Forward)

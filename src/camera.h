@@ -10,12 +10,9 @@ using glm::mat4;
 class Camera 
 {
 public:
-	glm::vec3 cameraPos;
-	glm::vec3 cameraFront;
-	glm::vec3 cameraUp;
-
-	float deltaTime;
-	float lastFrame;
+	vec3 cameraPos;
+	vec3 cameraFront;
+	vec3 cameraUp;
 
 	bool firstMouse;
 	bool canFirstMouse;
@@ -32,9 +29,8 @@ public:
 
 	Camera();
 	Camera(unsigned int SCR_WIDTH, unsigned int SCR_HEIGHT, vec3 startPos = vec3(0.0f, 0.0f, 0.0f));
-	void UpdateDeltaTime();
 	void KeyCallback(GLFWwindow* window);
 	void MouseCallback(GLFWwindow* window);
-	void Movement();
+	void Movement(float deltaTime);
 	mat4 ChangeViewMatrix(mat4 view);
 };

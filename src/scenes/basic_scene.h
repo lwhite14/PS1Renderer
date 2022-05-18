@@ -15,7 +15,7 @@ private:
 public:
 	Basic_Scene();
 	void Start(GLFWwindow* window);
-	void Update(GLFWwindow* window);
+	void Update(GLFWwindow* window, float deltaTime);
 	void Render();
 	void CleanUp();
 };

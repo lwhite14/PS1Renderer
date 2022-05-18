@@ -17,6 +17,7 @@ class Runner
 private:
 	GLFWwindow* window;
 	int fbw, fbh;
+	float deltaTime;
 
 public:
 	Runner(string name, int width, int height) 
@@ -71,6 +72,8 @@ public:
 	}
 
 private:
+	float lastFrame;
+
 	void MainLoop(Scene& scene) 
 	{        
 		while( ! glfwWindowShouldClose(window) && !glfwGetKey(window, GLFW_KEY_ESCAPE) ) 
@@ -78,8 +81,16 @@ private:
             glfwSwapBuffers(window);
             glfwPollEvents();
 
+			UpdateDeltaTime();
 			scene.Render();
-			scene.Update(window);
+			scene.Update(window, deltaTime);
         }	
+	}
+
+	void UpdateDeltaTime() 
+	{
+		float currentFrame = glfwGetTime();
+		deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
 	}
 };

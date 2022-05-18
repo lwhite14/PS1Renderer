@@ -25,10 +25,9 @@ void Basic_Scene::Start(GLFWwindow* window)
     shader.SetInt("Tex2", 1);
 }
 
-void Basic_Scene::Update(GLFWwindow* window)
+void Basic_Scene::Update(GLFWwindow* window, float deltaTime)
 {
-    camera.UpdateDeltaTime();
-    camera.Movement();
+    camera.Movement(deltaTime);
     camera.KeyCallback(window);
     camera.MouseCallback(window);
 

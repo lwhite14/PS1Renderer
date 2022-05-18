@@ -15,7 +15,7 @@ public:
 	mat4 view, model, projection;
 
 	virtual void Start(GLFWwindow* window) = 0;
-	virtual void Update(GLFWwindow* window) = 0;
+	virtual void Update(GLFWwindow* window, float deltaTime) = 0;
 	virtual void Render() = 0;
 	void SetMatrices(Shader& shader)
 	{
