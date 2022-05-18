@@ -162,7 +162,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\camera.cpp" />
     <ClCompile Include="src\drawables\cube.cpp" />
-    <ClCompile Include="src\gui.cpp" />
+    <ClCompile Include="src\debug_window.cpp" />
     <ClCompile Include="src\scenes\basic_scene.cpp" />
     <ClCompile Include="src\stb\stb_image.cpp" />
     <ClCompile Include="src\texture.cpp" />
@@ -180,7 +180,7 @@
     <ClInclude Include="src\camera.h" />
     <ClInclude Include="src\drawables\cube.h" />
     <ClInclude Include="src\drawables\drawable.h" />
-    <ClInclude Include="src\gui.h" />
+    <ClInclude Include="src\debug_window.h" />
     <ClInclude Include="src\runner.h" />
     <ClInclude Include="src\scenes\basic_scene.h" />
     <ClInclude Include="src\scenes\scene.h" />

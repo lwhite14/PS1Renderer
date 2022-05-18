@@ -11,12 +11,10 @@ using std::endl;
 #include "systeminformation.h"
 #include "scenes/scene.h"
 #include "scenes/basic_scene.h"
-#include "gui.h"
 
 class Runner 
 {
 private:
-	GUI gui;
 	GLFWwindow* window;
 	int fbw, fbh;
 
@@ -53,9 +51,6 @@ public:
 		SystemInformation::OutputInformation();
 
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
-
-		gui = GUI();
-		gui.Init(window);
 	}
 
 	int Run(Scene& scene)
@@ -63,12 +58,12 @@ public:
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 		scene.SetDimensions(fbw, fbh);
-		scene.Start();
+		scene.Start(window);
 		scene.Resize(fbw, fbh);
 
 		MainLoop(scene);
 
-		gui.CleanUp();
+		scene.CleanUp();
 
 		glfwTerminate();
 
@@ -83,10 +78,8 @@ private:
             glfwSwapBuffers(window);
             glfwPollEvents();
 
-			scene.Update(window);
 			scene.Render();
-
-			gui.PerFrame();
+			scene.Update(window);
         }	
 	}
 };

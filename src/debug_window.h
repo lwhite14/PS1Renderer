@@ -6,11 +6,11 @@
 #include "scenes/scene.h"
 #include <stdio.h>
 
-class GUI 
+class DebugWindow 
 {
 	void DrawElements();
 public:
-	GUI();
+	DebugWindow();
 
 	void Init(GLFWwindow* window);
 	void PerFrame();

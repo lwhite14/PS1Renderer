@@ -1,8 +1,8 @@
-#include "gui.h"
+#include "debug_window.h"
 
 #include <GLFW/glfw3.h>
 
-void GUI::DrawElements()
+void DebugWindow::DrawElements()
 {
     //ImGui::ShowDemoWindow();
 
@@ -19,12 +19,12 @@ void GUI::DrawElements()
     ImGui::End();
 }
 
-GUI::GUI()
+DebugWindow::DebugWindow()
 {
 
 }
 
-void GUI::Init(GLFWwindow* window)
+void DebugWindow::Init(GLFWwindow* window)
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -33,7 +33,7 @@ void GUI::Init(GLFWwindow* window)
     ImGui_ImplOpenGL3_Init("#version 460");
 }
 
-void GUI::PerFrame()
+void DebugWindow::PerFrame()
 {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
@@ -53,7 +53,7 @@ void GUI::PerFrame()
     }
 }
 
-void GUI::CleanUp()
+void DebugWindow::CleanUp()
 {
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();

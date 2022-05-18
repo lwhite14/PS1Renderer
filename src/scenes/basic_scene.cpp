@@ -5,8 +5,10 @@
 
 Basic_Scene::Basic_Scene() : cube(1.0f) { }
 
-void Basic_Scene::Start()
+void Basic_Scene::Start(GLFWwindow* window)
 {
+    debugWindow = DebugWindow();
+    debugWindow.Init(window);
     camera = Camera(width, height, vec3(0.0f, 0.0f, 3.0f));
 
 	glEnable(GL_DEPTH_TEST);
@@ -26,6 +28,8 @@ void Basic_Scene::Update(GLFWwindow* window)
     camera.Movement();
     camera.KeyCallback(window);
     camera.MouseCallback(window);
+
+    debugWindow.PerFrame();
 }
 
 void Basic_Scene::Render()
@@ -53,4 +57,9 @@ void Basic_Scene::Render()
 
     shader.SetMat4("projection", projection);
     cube.Render();
+}
+
+void Basic_Scene::CleanUp() 
+{
+    debugWindow.CleanUp();
 }

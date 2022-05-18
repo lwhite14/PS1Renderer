@@ -14,7 +14,7 @@ public:
 	int width, height;
 	mat4 view, model, projection;
 
-	virtual void Start() = 0;
+	virtual void Start(GLFWwindow* window) = 0;
 	virtual void Update(GLFWwindow* window) = 0;
 	virtual void Render() = 0;
 	void SetMatrices(Shader& shader)
@@ -36,4 +36,5 @@ public:
 		width = w;
 		height = h;
 	}
+	virtual void CleanUp() = 0;
 };
