@@ -14,6 +14,9 @@ void Basic_Scene::Start(GLFWwindow* window)
 	glEnable(GL_DEPTH_TEST);
 	shader = Shader("shaders/basic_textured.vert", "shaders/basic_textured.frag");
 
+    view = mat4(1.0f);
+    projection = mat4(1.0f);
+
     tex1 = Texture::LoadTexture("media/images/container.jpg");
     tex2 = Texture::LoadTexture("media/images/awesomeface.png");
 
@@ -42,19 +45,11 @@ void Basic_Scene::Render()
 
     shader.Use();
 
-    glm::mat4 model = glm::mat4(1.0f); 
-    glm::mat4 view = glm::mat4(1.0f);
-    glm::mat4 projection = glm::mat4(1.0f);
+    model = mat4(1.0f);
     model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(0.5f, 1.0f, 0.0f));
     view = camera.ChangeViewMatrix(view);
-    projection = glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f);
 
-    unsigned int modelLoc = glGetUniformLocation(shader.ID, "model");
-    unsigned int viewLoc = glGetUniformLocation(shader.ID, "view");
-
-    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
-
+    SetMatrices(shader);
     shader.SetMat4("projection", projection);
     cube.Render();
 }
