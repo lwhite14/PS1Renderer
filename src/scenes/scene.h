@@ -18,13 +18,6 @@ public:
 	virtual void Start(GLFWwindow* window) = 0;
 	virtual void Update(GLFWwindow* window, float deltaTime) = 0;
 	virtual void Render() = 0;
-	void SetMatrices(GLSLProgram& prog)
-	{
-		mat4 mv = view * model;
-		prog.SetUniform("MVP", projection * mv);
-		prog.SetUniform("ModelViewMatrix", mv);
-		prog.SetUniform("NormalMatrix", glm::mat3(vec3(mv[0]), vec3(mv[1]), vec3(mv[2])));
-	}
 	void Resize(float w, float h)
 	{
 		glViewport(0, 0, w, h);

@@ -1,18 +1,17 @@
 #pragma once
 
 #include "scene.h"
-#include "../drawables/cube.h"
 #include "../debug_window.h"
 #include "../lights/point_light.h"
 #include "../glslprogram.h"
+#include "../render_obj.h"
 
 class Basic_Scene : public Scene
 {
 private:
 	DebugWindow debugWindow;
 	GLSLProgram prog;
-	GLuint tex1, tex2;
-	Cube cube;
+	RenderObj cube;
 
 	PointLight light;
 

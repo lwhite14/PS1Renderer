@@ -2,17 +2,17 @@
 #include <GLFW/glfw3.h>
 #include "../texture.h"
 #include <glm/gtc/type_ptr.hpp>
+#include "../drawables/cube.h"
 
-Basic_Scene::Basic_Scene() :    cube(1.0f),
-                                light
-                                (
-                                    vec4(5.0f, 5.0f, 5.0f, 1.0f),
-                                    vec3(0.8f),
-                                    vec3(0.25f),
-                                    vec3(0.0f)
-                                )
+Basic_Scene::Basic_Scene()
 { 
-
+    this->light = PointLight
+    (
+        vec4(0.0f, 10.0f, 0.0f, 1.0f),
+        vec3(0.8f),
+        vec3(0.25f),
+        vec3(0.0f)
+    );
 }
 
 void Basic_Scene::Start(GLFWwindow* window)
@@ -34,10 +34,9 @@ void Basic_Scene::Start(GLFWwindow* window)
     camera = Camera(width, height, vec3(0.0f, 0.0f, 3.0f));
 
 	glEnable(GL_DEPTH_TEST);
-	//shader = Shader("shaders/basic_lit.vert", "shaders/basic_lit.frag");
-    prog.CompileShader("shaders/basic_lit.vert");
-    prog.CompileShader("shaders/basic_lit.frag");
-    prog.Link();
+
+    cube.SetMaterial(vec3(0.05f, 0.0f, 0.0f), vec3(1.0f, 0.05f, 0.05f), vec3(1.0f, 1.0f, 1.0f), 1024.0f);
+    cube.Init(new Cube(1.0f), "shaders/basic_lit.vert", "shaders/basic_lit.frag");
 
     view = mat4(1.0f);
     projection = mat4(1.0f);
@@ -64,19 +63,7 @@ void Basic_Scene::Render()
 
     view = camera.ChangeViewMatrix(view);
 
-    prog.Use();
-    prog.SetUniform("Material.Ka", vec3(0.5f, 0.35f, 0.35f));
-    prog.SetUniform("Material.Kd", vec3(0.85f, 0.85f, 0.85f));
-    prog.SetUniform("Material.Ks", vec3(1.0f, 1.0f, 1.0f));
-    prog.SetUniform("Material.Shininess", 64.0f);
-    prog.SetUniform("Light.Position", light.position);
-    prog.SetUniform("Light.La", light.ambientIntensity);
-    prog.SetUniform("Light.Ld", light.diffuseIntensity);
-    prog.SetUniform("Light.Ls", light.specularIntensity);
-    model = mat4(1.0f);
-    model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(0.5f, 1.0f, 0.0f));
-    SetMatrices(prog);
-    cube.Render();
+    cube.Render(light, view, model, projection);
 }
 
 void Basic_Scene::CleanUp() 
