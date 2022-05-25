@@ -8,11 +8,12 @@ Basic_Scene::Basic_Scene()
 { 
     this->light = PointLight
     (
-        vec4(0.0f, 10.0f, 0.0f, 1.0f),
-        vec3(0.8f),
-        vec3(0.25f),
+        vec4(-20.0f, 20.0f, 0.0f, 1.0f),
+        vec3(0.2f),
+        vec3(1.0f),
         vec3(0.0f)
     );
+    monkey = ObjMesh::Load("media/models/suzanne.obj");
 }
 
 void Basic_Scene::Start(GLFWwindow* window)
@@ -35,11 +36,19 @@ void Basic_Scene::Start(GLFWwindow* window)
 
 	glEnable(GL_DEPTH_TEST);
 
-    cube.Init(new Cube(1.0f), vec3(0.25f, 0.25f, 0.25f), vec3(0.25f, 0.25f, 0.25f), vec3(0.25f, 0.25f, 0.25f), 64.0f);
+    //cube.Init(new ObjMesh("media/models/suzanne.obj"), vec3(0.25f, 0.25f, 0.25f), vec3(0.25f, 0.25f, 0.25f), vec3(0.25f, 0.25f, 0.25f), 64.0f);
+    CompileShaders();
+
+    view = mat4(1.0f);
+    projection = mat4(1.0f);
+}
+
+void Basic_Scene::CompileShaders()
+{
     try
     {
-        prog.CompileShader("shaders/basic_lit.vert");
-        prog.CompileShader("shaders/basic_lit.frag");
+        prog.CompileShader("shaders/psx.vert");
+        prog.CompileShader("shaders/psx.frag");
         prog.Link();
     }
     catch (GLSLProgramException& e)
@@ -47,9 +56,6 @@ void Basic_Scene::Start(GLFWwindow* window)
         std::cerr << e.what() << std::endl;
         exit(EXIT_FAILURE);
     }
-
-    view = mat4(1.0f);
-    projection = mat4(1.0f);
 }
 
 void Basic_Scene::Update(GLFWwindow* window, float deltaTime)
@@ -73,7 +79,23 @@ void Basic_Scene::Render()
 
     view = camera.ChangeViewMatrix(view);
 
-    cube.Render(prog, light, view, model, projection);
+    model = mat4(1.0f);
+    model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(0.0f, 1.0f, 0.0f));
+    //cube.Render(prog, light, view, model, projection);
+    prog.Use();
+    prog.SetUniform("Material.Ka", vec3(0.25f, 0.25f, 0.25f));
+    prog.SetUniform("Material.Kd", vec3(0.25f, 0.25f, 0.25f));
+    prog.SetUniform("Material.Ks", vec3(0.25f, 0.25f, 0.25f));
+    prog.SetUniform("Material.Shininess", 64.0f);
+    prog.SetUniform("Light.Position", view * light.position);
+    prog.SetUniform("Light.La", light.ambientIntensity);
+    prog.SetUniform("Light.Ld", light.diffuseIntensity);
+    prog.SetUniform("Light.Ls", light.specularIntensity);
+    mat4 mv = view * model;
+    prog.SetUniform("MVP", projection * mv);
+    prog.SetUniform("ModelViewMatrix", mv);
+    prog.SetUniform("NormalMatrix", glm::mat3(vec3(mv[0]), vec3(mv[1]), vec3(mv[2])));
+    monkey->Render();
 }
 
 void Basic_Scene::CleanUp() 

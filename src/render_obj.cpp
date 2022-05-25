@@ -33,8 +33,6 @@ void RenderObj::Render(GLSLProgram& prog, PointLight pointLight, mat4& view, mat
 	prog.SetUniform("Light.La", pointLight.ambientIntensity);
 	prog.SetUniform("Light.Ld", pointLight.diffuseIntensity);
 	prog.SetUniform("Light.Ls", pointLight.specularIntensity);
-	model = mat4(1.0f);
-	model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(0.5f, 1.0f, 0.0f));
 	SetMatrices(prog, view, model, projection);
 	drawable->Render();
 }

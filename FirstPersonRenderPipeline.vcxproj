@@ -163,6 +163,7 @@
     <ClCompile Include="src\camera.cpp" />
     <ClCompile Include="src\drawables\cube.cpp" />
     <ClCompile Include="src\debug_window.cpp" />
+    <ClCompile Include="src\drawables\obj_mesh.cpp" />
     <ClCompile Include="src\glslprogram.cpp" />
     <ClCompile Include="src\render_obj.cpp" />
     <ClCompile Include="src\scenes\basic_scene.cpp" />
@@ -180,9 +181,11 @@
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="src\camera.h" />
+    <ClInclude Include="src\drawables\aabb.h" />
     <ClInclude Include="src\drawables\cube.h" />
     <ClInclude Include="src\drawables\drawable.h" />
     <ClInclude Include="src\debug_window.h" />
+    <ClInclude Include="src\drawables\obj_mesh.h" />
     <ClInclude Include="src\glslprogram.h" />
     <ClInclude Include="src\lights\light.h" />
     <ClInclude Include="src\lights\point_light.h" />
@@ -205,6 +208,8 @@
     <None Include="shaders\basic_lit.vert" />
     <None Include="shaders\basic_textured.frag" />
     <None Include="shaders\basic_textured.vert" />
+    <None Include="shaders\psx.frag" />
+    <None Include="shaders\psx.vert" />
     <None Include="src\motion.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
