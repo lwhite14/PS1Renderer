@@ -13,31 +13,16 @@ RenderObj::RenderObj()
 	this->shininess = 0.0f;
 }
 
-void RenderObj::SetMaterial(vec3 Ka, vec3 Kd, vec3 Ks, float shininess)
+void RenderObj::Init(Drawable* drawable, vec3 Ka, vec3 Kd, vec3 Ks, float shininess)
 {
+	this->drawable = drawable;
 	this->Ka = Ka;
 	this->Kd = Kd;
 	this->Ks = Ks;
 	this->shininess = shininess;
 }
 
-void RenderObj::Init(Drawable* drawable, std::string vertexPath, std::string fragmentPath)
-{
-	this->drawable = drawable;
-	try 
-	{
-		prog.CompileShader("shaders/basic_lit.vert");
-		prog.CompileShader("shaders/basic_lit.frag");
-		prog.Link();
-	}
-	catch (GLSLProgramException& e)
-	{
-		std::cerr << e.what() << std::endl;
-		exit(EXIT_FAILURE);
-	}
-}
-
-void RenderObj::Render(PointLight pointLight, mat4& view, mat4& model, mat4& projection)
+void RenderObj::Render(GLSLProgram& prog, PointLight pointLight, mat4& view, mat4& model, mat4& projection)
 {
 	prog.Use();
 	prog.SetUniform("Material.Ka", Ka);
@@ -50,11 +35,11 @@ void RenderObj::Render(PointLight pointLight, mat4& view, mat4& model, mat4& pro
 	prog.SetUniform("Light.Ls", pointLight.specularIntensity);
 	model = mat4(1.0f);
 	model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(0.5f, 1.0f, 0.0f));
-	SetMatrices(view, model, projection);
+	SetMatrices(prog, view, model, projection);
 	drawable->Render();
 }
 
-void RenderObj::SetMatrices(mat4& view, mat4& model, mat4& projection)
+void RenderObj::SetMatrices(GLSLProgram& prog, mat4& view, mat4& model, mat4& projection)
 {
 	mat4 mv = view * model;
 	prog.SetUniform("MVP", projection * mv);

@@ -35,8 +35,18 @@ void Basic_Scene::Start(GLFWwindow* window)
 
 	glEnable(GL_DEPTH_TEST);
 
-    cube.SetMaterial(vec3(0.05f, 0.0f, 0.0f), vec3(1.0f, 0.05f, 0.05f), vec3(1.0f, 1.0f, 1.0f), 1024.0f);
-    cube.Init(new Cube(1.0f), "shaders/basic_lit.vert", "shaders/basic_lit.frag");
+    cube.Init(new Cube(1.0f), vec3(0.25f, 0.25f, 0.25f), vec3(0.25f, 0.25f, 0.25f), vec3(0.25f, 0.25f, 0.25f), 64.0f);
+    try
+    {
+        prog.CompileShader("shaders/basic_lit.vert");
+        prog.CompileShader("shaders/basic_lit.frag");
+        prog.Link();
+    }
+    catch (GLSLProgramException& e)
+    {
+        std::cerr << e.what() << std::endl;
+        exit(EXIT_FAILURE);
+    }
 
     view = mat4(1.0f);
     projection = mat4(1.0f);
@@ -63,7 +73,7 @@ void Basic_Scene::Render()
 
     view = camera.ChangeViewMatrix(view);
 
-    cube.Render(light, view, model, projection);
+    cube.Render(prog, light, view, model, projection);
 }
 
 void Basic_Scene::CleanUp() 
