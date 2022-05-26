@@ -12,7 +12,7 @@ class Basic_Scene : public Scene
 private:
 	DebugWindow debugWindow;
 	GLSLProgram prog;
-	RenderObj monkey;
+	RenderObj rock;
 	PointLight light;
 
 public:

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
+#include "texture.h"
 
 RenderObj::RenderObj() 
 { 
@@ -11,6 +12,7 @@ RenderObj::RenderObj()
 	this->Kd = vec3(0.0f);
 	this->Ks = vec3(0.0f);
 	this->shininess = 0.0f;
+	this->texture = nullptr;
 }
 
 void RenderObj::Init(Drawable* drawable, vec3 Ka, vec3 Kd, vec3 Ks, float shininess)
@@ -20,6 +22,11 @@ void RenderObj::Init(Drawable* drawable, vec3 Ka, vec3 Kd, vec3 Ks, float shinin
 	this->Kd = Kd;
 	this->Ks = Ks;
 	this->shininess = shininess;
+}
+
+void RenderObj::SetTexture(const char* texturePath)
+{
+	this->texture = Texture::LoadTexturePtr(texturePath);
 }
 
 void RenderObj::Render(GLSLProgram& prog, PointLight pointLight, mat4& view, mat4& model, mat4& projection)
@@ -33,6 +40,11 @@ void RenderObj::Render(GLSLProgram& prog, PointLight pointLight, mat4& view, mat
 	prog.SetUniform("Light.La", pointLight.ambientIntensity);
 	prog.SetUniform("Light.Ld", pointLight.diffuseIntensity);
 	prog.SetUniform("Light.Ls", pointLight.specularIntensity);
+	if (texture != nullptr) 
+	{
+		Texture::BindTexture(GL_TEXTURE0, *texture);
+		prog.SetUniform("Tex1", *texture);
+	}
 	SetMatrices(prog, view, model, projection);
 	drawable->Render();
 }

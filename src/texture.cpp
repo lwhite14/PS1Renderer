@@ -22,6 +22,12 @@ GLuint Texture::LoadTexture(const std::string& filePath)
     return tex;
 }
 
+GLuint* Texture::LoadTexturePtr(const std::string& filePath)
+{
+    GLuint tex = LoadTexture(filePath);
+    return &tex;
+}
+
 unsigned char* Texture::LoadPixels(const std::string& filePath, int& width, int& height, bool flip)
 {
     int bytesPerPix;

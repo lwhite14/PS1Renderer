@@ -8,7 +8,7 @@ Basic_Scene::Basic_Scene()
 { 
     this->light = PointLight
     (
-        vec4(-20.0f, 20.0f, 0.0f, 1.0f),
+        vec4(-20.0f, 20.0f, 40.0f, 1.0f),
         vec3(0.2f),
         vec3(1.0f),
         vec3(0.0f)
@@ -31,12 +31,15 @@ void Basic_Scene::Start(GLFWwindow* window)
     debugWindow.lightSpecular[0] = light.specularIntensity.x;
     debugWindow.lightSpecular[1] = light.specularIntensity.y;
     debugWindow.lightSpecular[2] = light.specularIntensity.z;
-    camera = Camera(width, height, vec3(0.0f, 0.0f, 3.0f));
+    camera = Camera(width, height, vec3(0.0f, 0.0f, 100.0f));
 
 	glEnable(GL_DEPTH_TEST);
 
-    monkey.Init(ObjMesh::Load("media/models/suzanne.obj"), vec3(0.25f, 0.25f, 0.25f), vec3(0.25f, 0.25f, 0.25f), vec3(0.25f, 0.25f, 0.25f), 64.0f);
+    rock.Init(ObjMesh::Load("media/models/meteor.obj"), vec3(0.25f), vec3(0.25f), vec3(0.25f), 64.0f);
+    rock.SetTexture("media/images/rock.jpg");
     CompileShaders();
+    prog.Use();
+    prog.SetUniform("fogMaxDist", 250.0f);
 
     view = mat4(1.0f);
     projection = mat4(1.0f);
@@ -80,7 +83,7 @@ void Basic_Scene::Render()
 
     model = mat4(1.0f);
     model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(0.0f, 1.0f, 0.0f));
-    monkey.Render(prog, light, view, model, projection);
+    rock.Render(prog, light, view, model, projection);
 }
 
 void Basic_Scene::CleanUp() 
