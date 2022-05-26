@@ -32,10 +32,10 @@ void ObjMesh::Render()
 }
 
 
-std::unique_ptr<ObjMesh> ObjMesh::Load(const char* fileName, bool center, bool genTangents) 
+ObjMesh* ObjMesh::Load(const char* fileName, bool center, bool genTangents) 
 {
 
-    std::unique_ptr<ObjMesh> mesh(new ObjMesh());
+    ObjMesh* mesh(new ObjMesh());
 
     ObjMeshData meshData;
     meshData.Load(fileName, mesh->bbox);
@@ -67,9 +67,9 @@ std::unique_ptr<ObjMesh> ObjMesh::Load(const char* fileName, bool center, bool g
     return mesh;
 }
 
-std::unique_ptr<ObjMesh> ObjMesh::LoadWithAdjacency(const char* fileName, bool center) {
+ObjMesh* ObjMesh::LoadWithAdjacency(const char* fileName, bool center) {
 
-    std::unique_ptr<ObjMesh> mesh(new ObjMesh());
+    ObjMesh* mesh(new ObjMesh());
 
     ObjMeshData meshData;
     meshData.Load(fileName, mesh->bbox);

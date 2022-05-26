@@ -12,9 +12,8 @@ class Basic_Scene : public Scene
 private:
 	DebugWindow debugWindow;
 	GLSLProgram prog;
-	//RenderObj cube;
+	RenderObj monkey;
 	PointLight light;
-	std::unique_ptr<ObjMesh> monkey;
 
 public:
 	Basic_Scene();

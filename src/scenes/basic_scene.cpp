@@ -13,7 +13,6 @@ Basic_Scene::Basic_Scene()
         vec3(1.0f),
         vec3(0.0f)
     );
-    monkey = ObjMesh::Load("media/models/suzanne.obj");
 }
 
 void Basic_Scene::Start(GLFWwindow* window)
@@ -36,7 +35,7 @@ void Basic_Scene::Start(GLFWwindow* window)
 
 	glEnable(GL_DEPTH_TEST);
 
-    //cube.Init(new ObjMesh("media/models/suzanne.obj"), vec3(0.25f, 0.25f, 0.25f), vec3(0.25f, 0.25f, 0.25f), vec3(0.25f, 0.25f, 0.25f), 64.0f);
+    monkey.Init(ObjMesh::Load("media/models/suzanne.obj"), vec3(0.25f, 0.25f, 0.25f), vec3(0.25f, 0.25f, 0.25f), vec3(0.25f, 0.25f, 0.25f), 64.0f);
     CompileShaders();
 
     view = mat4(1.0f);
@@ -81,21 +80,7 @@ void Basic_Scene::Render()
 
     model = mat4(1.0f);
     model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(0.0f, 1.0f, 0.0f));
-    //cube.Render(prog, light, view, model, projection);
-    prog.Use();
-    prog.SetUniform("Material.Ka", vec3(0.25f, 0.25f, 0.25f));
-    prog.SetUniform("Material.Kd", vec3(0.25f, 0.25f, 0.25f));
-    prog.SetUniform("Material.Ks", vec3(0.25f, 0.25f, 0.25f));
-    prog.SetUniform("Material.Shininess", 64.0f);
-    prog.SetUniform("Light.Position", view * light.position);
-    prog.SetUniform("Light.La", light.ambientIntensity);
-    prog.SetUniform("Light.Ld", light.diffuseIntensity);
-    prog.SetUniform("Light.Ls", light.specularIntensity);
-    mat4 mv = view * model;
-    prog.SetUniform("MVP", projection * mv);
-    prog.SetUniform("ModelViewMatrix", mv);
-    prog.SetUniform("NormalMatrix", glm::mat3(vec3(mv[0]), vec3(mv[1]), vec3(mv[2])));
-    monkey->Render();
+    monkey.Render(prog, light, view, model, projection);
 }
 
 void Basic_Scene::CleanUp() 

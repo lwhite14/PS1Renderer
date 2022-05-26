@@ -15,8 +15,8 @@ private:
     bool drawAdj;
 
 public:
-    static std::unique_ptr<ObjMesh> Load(const char* fileName, bool center = false, bool genTangents = false);
-    static std::unique_ptr<ObjMesh> LoadWithAdjacency(const char* fileName, bool center = false);
+    static ObjMesh* Load(const char* fileName, bool center = false, bool genTangents = false);
+    static ObjMesh* LoadWithAdjacency(const char* fileName, bool center = false);
 
     void Render() override;
 
