@@ -22,6 +22,10 @@ uniform struct MaterialInfo
 	float Shininess;
 } Material;
 
+uniform vec4 fogColour = vec4(0.4, 0.4, 0.4, 1.0);
+uniform float fogMaxDist = 20.0;
+uniform float fogMinDist = 0.25;
+
 vec3 blinnPhong( vec3 position, vec3 normal ) 
 {
 	// Ambient
@@ -45,5 +49,10 @@ vec3 blinnPhong( vec3 position, vec3 normal )
 
 void main()
 {
-	FragColor = vec4(blinnPhong(Position, normalize(Normal)), 1.0f);
+	// Calculate fog
+	float dist = length(Position.xyz);
+	float fogFactor = (fogMaxDist - dist) / (fogMaxDist - fogMinDist);
+	fogFactor = clamp(fogFactor, 0.0, 1.0);
+
+	FragColor = mix(fogColour, vec4(blinnPhong(Position, normalize(Normal)), 1.0f), fogFactor);
 }
