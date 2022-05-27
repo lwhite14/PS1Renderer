@@ -31,16 +31,14 @@ void Basic_Scene::Start(GLFWwindow* window)
     debugWindow.lightSpecular[0] = light.specularIntensity.x;
     debugWindow.lightSpecular[1] = light.specularIntensity.y;
     debugWindow.lightSpecular[2] = light.specularIntensity.z;
-    camera = Camera(width, height, vec3(0.0f, 30.0f, 100.0f));
+    camera = Camera(width, height, vec3(0.0f, 1.5f, 6.0f));
 
 	glEnable(GL_DEPTH_TEST);
 
-    ObjMesh* tempMesh = ObjMesh::Load("media/models/meteor.obj");
-    rock1.Init(tempMesh, vec3(0.25f), vec3(0.25f), vec3(0.25f), 64.0f, "media/images/rock.jpg");
-    rock2.Init(tempMesh, vec3(0.25f), vec3(0.25f), vec3(0.25f), 64.0f, "media/images/container.jpg");
+    car.Init(ObjMesh::Load("media/models/car.obj"), vec3(0.25f), vec3(0.25f), vec3(0.25f), 256.0f, "media/images/car.png");
+    road.Init(ObjMesh::Load("media/models/floor.obj"), vec3(0.25f), vec3(0.25f), vec3(0.25f), 256.0f, "media/images/road.png");
+
     CompileShaders();
-    prog.Use();
-    prog.SetUniform("fogMaxDist", 250.0f);
 
     view = mat4(1.0f);
     projection = mat4(1.0f);
@@ -83,10 +81,20 @@ void Basic_Scene::Render()
     view = camera.ChangeViewMatrix(view);
 
     model = mat4(1.0f);
-    model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(0.0f, 1.0f, 0.0f));
-    rock1.Render(prog, light, view, model, projection);
-    model = glm::translate(model, vec3(0.0f, 60.0f, 0.0f));
-    rock2.Render(prog, light, view, model, projection);
+    model = glm::rotate(model, glm::radians(-50.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    car.Render(prog, light, view, model, projection);
+    road.Render(prog, light, view, model, projection);
+
+    model = mat4(1.0f);
+    model = glm::rotate(model, glm::radians(-50.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    model = glm::translate(model, vec3(0.0f, 0.0f, 15.9f));
+    road.Render(prog, light, view, model, projection);
+
+    model = mat4(1.0f);
+    model = glm::rotate(model, glm::radians(-50.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    model = glm::translate(model, vec3(0.0f, 0.0f, -15.9f));
+    road.Render(prog, light, view, model, projection);
+
 }
 
 void Basic_Scene::CleanUp() 
