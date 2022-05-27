@@ -31,12 +31,13 @@ void Basic_Scene::Start(GLFWwindow* window)
     debugWindow.lightSpecular[0] = light.specularIntensity.x;
     debugWindow.lightSpecular[1] = light.specularIntensity.y;
     debugWindow.lightSpecular[2] = light.specularIntensity.z;
-    camera = Camera(width, height, vec3(0.0f, 0.0f, 100.0f));
+    camera = Camera(width, height, vec3(0.0f, 30.0f, 100.0f));
 
 	glEnable(GL_DEPTH_TEST);
 
-    rock.Init(ObjMesh::Load("media/models/meteor.obj"), vec3(0.25f), vec3(0.25f), vec3(0.25f), 64.0f);
-    rock.SetTexture("media/images/rock.jpg");
+    ObjMesh* tempMesh = ObjMesh::Load("media/models/meteor.obj");
+    rock1.Init(tempMesh, vec3(0.25f), vec3(0.25f), vec3(0.25f), 64.0f, "media/images/rock.jpg");
+    rock2.Init(tempMesh, vec3(0.25f), vec3(0.25f), vec3(0.25f), 64.0f, "media/images/container.jpg");
     CompileShaders();
     prog.Use();
     prog.SetUniform("fogMaxDist", 250.0f);
@@ -83,7 +84,9 @@ void Basic_Scene::Render()
 
     model = mat4(1.0f);
     model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(0.0f, 1.0f, 0.0f));
-    rock.Render(prog, light, view, model, projection);
+    rock1.Render(prog, light, view, model, projection);
+    model = glm::translate(model, vec3(0.0f, 60.0f, 0.0f));
+    rock2.Render(prog, light, view, model, projection);
 }
 
 void Basic_Scene::CleanUp() 

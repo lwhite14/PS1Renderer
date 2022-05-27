@@ -12,21 +12,17 @@ RenderObj::RenderObj()
 	this->Kd = vec3(0.0f);
 	this->Ks = vec3(0.0f);
 	this->shininess = 0.0f;
-	this->texture = nullptr;
+	this->texture = 0;
 }
 
-void RenderObj::Init(Drawable* drawable, vec3 Ka, vec3 Kd, vec3 Ks, float shininess)
+void RenderObj::Init(Drawable* drawable, vec3 Ka, vec3 Kd, vec3 Ks, float shininess, const char* texturePath)
 {
 	this->drawable = drawable;
 	this->Ka = Ka;
 	this->Kd = Kd;
 	this->Ks = Ks;
 	this->shininess = shininess;
-}
-
-void RenderObj::SetTexture(const char* texturePath)
-{
-	this->texture = Texture::LoadTexturePtr(texturePath);
+	this->texture = Texture::LoadTexture(texturePath);
 }
 
 void RenderObj::Render(GLSLProgram& prog, PointLight pointLight, mat4& view, mat4& model, mat4& projection)
@@ -40,11 +36,9 @@ void RenderObj::Render(GLSLProgram& prog, PointLight pointLight, mat4& view, mat
 	prog.SetUniform("Light.La", pointLight.ambientIntensity);
 	prog.SetUniform("Light.Ld", pointLight.diffuseIntensity);
 	prog.SetUniform("Light.Ls", pointLight.specularIntensity);
-	if (texture != nullptr) 
-	{
-		Texture::BindTexture(GL_TEXTURE0, *texture);
-		prog.SetUniform("Tex1", *texture);
-	}
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	prog.SetUniform("Tex1", texture);
 	SetMatrices(prog, view, model, projection);
 	drawable->Render();
 }

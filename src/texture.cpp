@@ -22,22 +22,10 @@ GLuint Texture::LoadTexture(const std::string& filePath)
     return tex;
 }
 
-GLuint* Texture::LoadTexturePtr(const std::string& filePath)
-{
-    GLuint tex = LoadTexture(filePath);
-    return &tex;
-}
-
 unsigned char* Texture::LoadPixels(const std::string& filePath, int& width, int& height, bool flip)
 {
     int bytesPerPix;
     stbi_set_flip_vertically_on_load(flip);
     unsigned char* data = stbi_load(filePath.c_str(), &width, &height, &bytesPerPix, 4);
     return data;
-}
-
-void Texture::BindTexture(GLuint unit, GLuint texture)
-{
-    glActiveTexture(unit);
-    glBindTexture(GL_TEXTURE_2D, texture);
 }
