@@ -31,7 +31,8 @@ void Basic_Scene::Start(GLFWwindow* window)
     debugWindow.lightSpecular[0] = light.specularIntensity.x;
     debugWindow.lightSpecular[1] = light.specularIntensity.y;
     debugWindow.lightSpecular[2] = light.specularIntensity.z;
-    camera = Camera(width, height, vec3(0.0f, 1.5f, 6.0f));
+    camera = Camera(width, height, vec3(0.0f, 3.0f, 5.0f));
+    camera.pitch = -25.0f;
 
 	glEnable(GL_DEPTH_TEST);
 
@@ -81,17 +82,17 @@ void Basic_Scene::Render()
     view = camera.ChangeViewMatrix(view);
 
     model = mat4(1.0f);
-    model = glm::rotate(model, glm::radians(-50.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     car.Render(prog, light, view, model, projection);
     road.Render(prog, light, view, model, projection);
 
     model = mat4(1.0f);
-    model = glm::rotate(model, glm::radians(-50.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     model = glm::translate(model, vec3(0.0f, 0.0f, 15.9f));
     road.Render(prog, light, view, model, projection);
 
     model = mat4(1.0f);
-    model = glm::rotate(model, glm::radians(-50.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     model = glm::translate(model, vec3(0.0f, 0.0f, -15.9f));
     road.Render(prog, light, view, model, projection);
 

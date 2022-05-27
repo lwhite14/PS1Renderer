@@ -28,7 +28,7 @@ public:
 	Motion motion;
 
 	Camera();
-	Camera(unsigned int SCR_WIDTH, unsigned int SCR_HEIGHT, vec3 startPos = vec3(0.0f, 0.0f, 0.0f));
+	Camera(unsigned int SCR_WIDTH, unsigned int SCR_HEIGHT, vec3 startPos = vec3(0.0f));
 	void KeyCallback(GLFWwindow* window);
 	void MouseCallback(GLFWwindow* window);
 	void Movement(float deltaTime);

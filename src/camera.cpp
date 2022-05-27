@@ -17,8 +17,8 @@ Camera::Camera(unsigned int SCR_WIDTH, unsigned int SCR_HEIGHT, vec3 startPos)
 	motion = { false,false,false,false };
 
 	cameraPos = startPos;
-	cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-	cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+	cameraFront = vec3(0.0f, 0.0f, -1.0f);
+	cameraUp = vec3(0.0f, 1.0f, 0.0f);
 }
 
 void Camera::KeyCallback(GLFWwindow* window)
