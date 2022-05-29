@@ -38,6 +38,7 @@ void Basic_Scene::Start(GLFWwindow* window)
 
     car.Init(ObjMesh::Load("media/models/car.obj"), vec3(0.25f), vec3(0.25f), vec3(0.25f), 256.0f, "media/images/car.png");
     road.Init(ObjMesh::Load("media/models/floor.obj"), vec3(0.25f), vec3(0.25f), vec3(0.25f), 256.0f, "media/images/road.png");
+    buildings.Init(ObjMesh::Load("media/models/buildings.obj"), vec3(0.25f), vec3(0.25f), vec3(0.25f), 256.0f, "media/images/buildingface.jpg");
 
     CompileShaders();
 
@@ -96,6 +97,10 @@ void Basic_Scene::Render()
     model = glm::translate(model, vec3(0.0f, 0.0f, -15.9f));
     road.Render(prog, light, view, model, projection);
 
+    model = mat4(1.0f);
+    model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    model = glm::translate(model, vec3(0.0f, 0.0f, 0.0f));
+    buildings.Render(prog, light, view, model, projection);
 }
 
 void Basic_Scene::CleanUp() 

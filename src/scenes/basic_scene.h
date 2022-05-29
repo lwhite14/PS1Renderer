@@ -12,7 +12,7 @@ class Basic_Scene : public Scene
 private:
 	DebugWindow debugWindow;
 	GLSLProgram prog;
-	RenderObj car, road;
+	RenderObj car, road, buildings;
 	PointLight light;
 
 public:
