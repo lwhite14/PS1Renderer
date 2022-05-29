@@ -12,8 +12,10 @@ class Basic_Scene : public Scene
 private:
 	DebugWindow debugWindow;
 	GLSLProgram prog;
-	RenderObj car, road, buildings;
+	RenderObj car, road, buildings, crate;
 	PointLight light;
+
+	float cameraSpeed, timer, angleMultiplier, startAngle;
 
 public:
 	Basic_Scene();

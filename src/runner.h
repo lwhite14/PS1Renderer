@@ -56,7 +56,7 @@ public:
 
 	int Run(Scene& scene)
 	{
-		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
 		scene.SetDimensions(fbw, fbh);
 		scene.Start(window);
