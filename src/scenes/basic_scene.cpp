@@ -3,6 +3,7 @@
 #include "../texture.h"
 #include <glm/gtc/type_ptr.hpp>
 #include "../drawables/cube.h"
+#include "../drawables/obj_mesh.h"
 
 Basic_Scene::Basic_Scene()
 { 

@@ -6,6 +6,7 @@
 #include "../camera.h"
 #include "../glslprogram.h"
 using glm::mat4;
+using glm::vec4;
 using glm::vec3;
 
 class Scene 
