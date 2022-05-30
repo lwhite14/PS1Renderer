@@ -92,20 +92,6 @@ void Basic_Scene::Render()
     model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     car.Render(prog, light, view, model, projection);
     road.Render(prog, light, view, model, projection);
-
-    model = mat4(1.0f);
-    model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-    model = glm::translate(model, vec3(0.0f, 0.0f, 15.9f));
-    road.Render(prog, light, view, model, projection);
-
-    model = mat4(1.0f);
-    model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-    model = glm::translate(model, vec3(0.0f, 0.0f, -15.9f));
-    road.Render(prog, light, view, model, projection);
-
-    model = mat4(1.0f);
-    model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-    model = glm::translate(model, vec3(0.0f, 0.0f, 0.0f));
     buildings.Render(prog, light, view, model, projection);
 
     model = mat4(1.0f);
