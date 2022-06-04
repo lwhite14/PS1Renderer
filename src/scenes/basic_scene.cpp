@@ -4,13 +4,14 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "../drawables/cube.h"
 #include "../drawables/obj_mesh.h"
+#include "../drawables/quad.h"
 
 Basic_Scene::Basic_Scene()
 { 
     this->light = PointLight
     (
         vec4(-5.0f, 5.0f, 5.0f, 1.0f),
-        vec3(0.0f),
+        vec3(0.25f),
         vec3(0.45f, 0.45f, 0.6f),
         vec3(0.0f)
     );
@@ -53,10 +54,10 @@ void Basic_Scene::Start(GLFWwindow* window)
 
 	glEnable(GL_DEPTH_TEST);
 
-    car.Init(ObjMesh::Load("media/models/car.obj"), vec3(0.25f), vec3(0.25f), vec3(0.25f), 256.0f, "media/images/car.png");
-    road.Init(ObjMesh::Load("media/models/floor.obj"), vec3(0.25f), vec3(0.25f), vec3(0.25f), 256.0f, "media/images/road.png");
-    buildings.Init(ObjMesh::Load("media/models/buildings.obj"), vec3(0.25f), vec3(0.25f), vec3(0.25f), 256.0f, "media/images/buildingface.jpg");
-    crate.Init(new Cube(1.0f), vec3(0.25f), vec3(0.25f), vec3(0.25f), 256.0f, "media/images/crate.jpg");
+    car.Init(ObjMesh::Load("media/models/car.obj"), vec3(0.25f), vec3(0.25f), vec3(0.25f), 256.0f, Texture::LoadTexturePtr("media/images/car.png"));
+    road.Init(ObjMesh::Load("media/models/floor.obj"), vec3(0.25f), vec3(0.25f), vec3(0.25f), 256.0f, Texture::LoadTexturePtr("media/images/road.png"));
+    buildings.Init(ObjMesh::Load("media/models/buildings.obj"), vec3(0.25f), vec3(0.25f), vec3(0.25f), 256.0f, Texture::LoadTexturePtr("media/images/buildingface.jpg"));
+    crate.Init(new Cube(1.0f), vec3(0.25f), vec3(0.25f), vec3(0.25f), 256.0f, Texture::LoadTexturePtr("media/images/crate.jpg"));
 
     CompileShaders();
 
@@ -88,7 +89,7 @@ void Basic_Scene::Start(GLFWwindow* window)
 
     // Shader Calls
     quadProg.Use();
-    quadProg.SetUniform("ScreenTexture", 0);
+    quadProg.SetUniform("Texture", 0);
 
     // framebuffer configuration
     // -------------------------

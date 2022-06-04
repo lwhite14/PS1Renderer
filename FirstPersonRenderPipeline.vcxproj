@@ -164,6 +164,7 @@
     <ClCompile Include="src\drawables\cube.cpp" />
     <ClCompile Include="src\debug_window.cpp" />
     <ClCompile Include="src\drawables\obj_mesh.cpp" />
+    <ClCompile Include="src\drawables\quad.cpp" />
     <ClCompile Include="src\glslprogram.cpp" />
     <ClCompile Include="src\render_obj.cpp" />
     <ClCompile Include="src\scenes\basic_scene.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="src\drawables\drawable.h" />
     <ClInclude Include="src\debug_window.h" />
     <ClInclude Include="src\drawables\obj_mesh.h" />
+    <ClInclude Include="src\drawables\quad.h" />
     <ClInclude Include="src\glslprogram.h" />
     <ClInclude Include="src\lights\light.h" />
     <ClInclude Include="src\lights\point_light.h" />

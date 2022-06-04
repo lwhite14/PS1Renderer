@@ -26,12 +26,12 @@ uniform vec4 fogColour = vec4(0.4, 0.4, 0.4, 1.0);
 uniform float fogMaxDist = 20.0;
 uniform float fogMinDist = 0.25;
 
-uniform sampler2D Tex1;
+uniform sampler2D Texture;
 
 vec3 blinnPhong( vec3 position, vec3 normal ) 
 {
 	// Get Tex Colour
-	vec3 texColour = texture(Tex1, TexCoord).rgb;
+	vec3 texColour = texture(Texture, TexCoord).rgb;
 
 	// Ambient
 	vec3 ambient = Material.Ka * Light.La * texColour;

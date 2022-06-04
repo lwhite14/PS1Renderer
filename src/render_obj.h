@@ -13,12 +13,13 @@ private:
 	vec3 Ka, Kd, Ks;
 	float shininess;
 	Drawable* drawable;
-	GLuint texture;
+	GLuint* texture;
 
 	void SetMatrices(GLSLProgram& prog, mat4& view, mat4& model, mat4& projection);
 public:
+
 	RenderObj();
 
-	void Init(Drawable* drawable, vec3 Ka, vec3 Kd, vec3 Ks, float shininess, const char* texturePath);
+	void Init(Drawable* drawable, vec3 Ka, vec3 Kd, vec3 Ks, float shininess, GLuint* texture = nullptr);
 	void Render(GLSLProgram& prog, PointLight pointLight, mat4& view, mat4& model, mat4& projection);
 };
