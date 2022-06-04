@@ -14,12 +14,22 @@ Basic_Scene::Basic_Scene()
         vec3(0.45f, 0.45f, 0.6f),
         vec3(0.0f)
     );
-    cameraSpeed = 1.0f;
-    timer = 0.0f;
-    startAngle = -90.0f;
-    angleMultiplier = 15.0f;
-    renderTexWidth = 320;
-    renderTexHeight = 240;
+    this->cameraSpeed = 1.0f;
+    this->timer = 0.0f;
+    this->startAngle = -90.0f;
+    this->angleMultiplier = 15.0f;
+    this->renderTexWidth = 320;
+    this->renderTexHeight = 240;
+    this->crateLocations = vector<vec3>
+    {
+        vec3(-4.0f, 0.5f, -1.0f),
+        vec3(-1.0f, 0.5f, -2.0f),
+        vec3(3.0f, 0.5f, -1.0f)
+    };
+    this->crateRotations = vector<float>
+    {
+        -33.0f, -80.0f, 10.0f
+    };
 }
 
 void Basic_Scene::Start(GLFWwindow* window)
@@ -160,20 +170,13 @@ void Basic_Scene::Render()
     road.Render(prog, light, view, model, projection);
     buildings.Render(prog, light, view, model, projection);
 
-    model = mat4(1.0f);
-    model = glm::translate(model, vec3(-4.0f, 0.5f, -1.0f));
-    model = glm::rotate(model, glm::radians(-33.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-    crate.Render(prog, light, view, model, projection);
-
-    model = mat4(1.0f);
-    model = glm::translate(model, vec3(-1.0f, 0.5f, -2.0f));
-    model = glm::rotate(model, glm::radians(-80.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-    crate.Render(prog, light, view, model, projection);
-
-    model = mat4(1.0f);
-    model = glm::translate(model, vec3(3.0f, 0.5f, -1.0f));
-    model = glm::rotate(model, glm::radians(10.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-    crate.Render(prog, light, view, model, projection);
+    for (unsigned int i = 0; i < 3; i++)
+    {
+        model = mat4(1.0f);
+        model = glm::translate(model, crateLocations[i]);
+        model = glm::rotate(model, glm::radians(crateRotations[i]), glm::vec3(0.0f, 1.0f, 0.0f));
+        crate.Render(prog, light, view, model, projection);
+    }
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glDisable(GL_DEPTH_TEST);

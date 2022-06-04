@@ -3,6 +3,10 @@
 #include "scene.h"
 #include "../debug_window.h"
 #include "../render_obj.h"
+#include <vector>
+
+using namespace std;
+using namespace glm;
 
 class Basic_Scene : public Scene
 {
@@ -12,6 +16,9 @@ private:
 	GLSLProgram quadProg;
 	RenderObj car, road, buildings, crate;
 	PointLight light;
+
+	vector<vec3> crateLocations;
+	vector<float> crateRotations;
 
 	float cameraSpeed;
 	float timer;
