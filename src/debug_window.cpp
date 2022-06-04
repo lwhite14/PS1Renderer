@@ -17,9 +17,8 @@ void DebugWindow::DrawElements()
     ImGui::DragFloat3("Position [Point]", lightPos, 0.25f, -200.0f, 200.0f);
     ImGui::DragFloat3("Diffuse", lightDiffuse, 0.01f, 0.0f, 1.0f);
     ImGui::DragFloat3("Ambient", lightAmbient, 0.01f, 0.0f, 1.0f);
-    ImGui::DragFloat3("Sepcular", lightSpecular, 0.01f, 0.0f, 1.0f);
     ImGui::Text("Object Editor");
-    ImGui::Text("Used To Move Selected Objects");
+    ImGui::Text("Used To Move Selected Object(s) [If Selected]");
     ImGui::DragFloat3("Position [Object]", objectPos, 0.25f, -200.0f, 200.0f);
     ImGui::DragFloat("Rotation [Object]", objectRot, 0.25f, -200.0f, 200.0f);
     ImGui::Text("Press 'Left Shift' to toggle to this debug menu");

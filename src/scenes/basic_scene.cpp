@@ -64,9 +64,6 @@ void Basic_Scene::Start(GLFWwindow* window)
     debugWindow.lightDiffuse[0] = light.diffuseIntensity.x;
     debugWindow.lightDiffuse[1] = light.diffuseIntensity.y;
     debugWindow.lightDiffuse[2] = light.diffuseIntensity.z;
-    debugWindow.lightSpecular[0] = light.specularIntensity.x;
-    debugWindow.lightSpecular[1] = light.specularIntensity.y;
-    debugWindow.lightSpecular[2] = light.specularIntensity.z;
     camera = Camera(width, height, vec3(0.0f, 3.0f, 5.0f));
     camera.pitch = -25.0f;
 
@@ -171,7 +168,6 @@ void Basic_Scene::Update(GLFWwindow* window, float deltaTime)
     light.position = vec4(debugWindow.lightPos[0], debugWindow.lightPos[1], debugWindow.lightPos[2], 1.0f);
     light.ambientIntensity = vec3(debugWindow.lightAmbient[0], debugWindow.lightAmbient[1], debugWindow.lightAmbient[2]);
     light.diffuseIntensity = vec3(debugWindow.lightDiffuse[0], debugWindow.lightDiffuse[1], debugWindow.lightDiffuse[2]);
-    light.specularIntensity = vec3(debugWindow.lightSpecular[0], debugWindow.lightSpecular[1], debugWindow.lightSpecular[2]);
 
     objectPosition = vec3(debugWindow.objectPos[0], debugWindow.objectPos[1], debugWindow.objectPos[2]);
     objectRotation = debugWindow.objectRot[0];

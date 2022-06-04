@@ -14,7 +14,6 @@ public:
 	float lightPos[3] = { 0.0f, 0.0f, 0.0f };
 	float lightDiffuse[3] = { 0.0f, 0.0f, 0.0f };
 	float lightAmbient[3] = { 0.0f, 0.0f, 0.0f };
-	float lightSpecular[3] = { 0.0f, 0.0f, 0.0f };
 	float objectPos[3] = { 0.0f, 0.0f, 0.0f };
 	float objectRot[1] = { 0.0f };
 

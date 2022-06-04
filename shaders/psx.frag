@@ -59,5 +59,7 @@ void main()
 	float fogFactor = (fogMaxDist - dist) / (fogMaxDist - fogMinDist);
 	fogFactor = clamp(fogFactor, 0.0, 1.0);
 	       
-	FragColor = mix(fogColour, vec4(blinnPhong(Position, normalize(Normal)), 1.0f), fogFactor);
+	vec4 shadedFragment = vec4(blinnPhong(Position, normalize(Normal)), 1.0f);
+	vec4 fogFragment = mix(fogColour, vec4(blinnPhong(Position, normalize(Normal)), 1.0f), fogFactor);
+	FragColor = fogFragment;
 }
