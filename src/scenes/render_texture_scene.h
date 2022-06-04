@@ -7,7 +7,12 @@ class RenderTexture_Scene : public Scene
 {
 private:
 	GLSLProgram prog;
+	GLSLProgram quadProg;
 	ObjMesh* suzanne;
+
+	unsigned int framebuffer;
+	unsigned int quadVAO, quadVBO;
+	unsigned int textureColorbuffer;
 
 	void CompileShaders();
 public:

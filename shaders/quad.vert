@@ -1,13 +1,12 @@
-#version 460 core
+#version 460
 
-// Input vertex data, different for all executions of this shader.
-layout(location = 0) in vec3 VertexPosition;
+layout (location = 0) in vec2 aPos;
+layout (location = 1) in vec2 aTexCoords;
 
-// Output data; will be interpolated for each fragment.
-out vec2 UV;
+out vec2 TexCoord;
 
 void main()
 {
-	gl_Position = vec4(VertexPosition, 1);
-	UV = (VertexPosition.xy + vec2(1,1)) / 2.0;
-}
+    TexCoord = aTexCoords;
+    gl_Position = vec4(aPos.x, aPos.y, 0.0, 1.0); 
+}  

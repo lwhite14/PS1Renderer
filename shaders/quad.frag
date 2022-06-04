@@ -1,13 +1,12 @@
-#version 460 core
+#version 460
 
-in vec2 UV;
+out vec4 FragColor;
 
-out vec3 FragColour;
+in vec2 TexCoord;
 
-uniform sampler2D RenderedTexture;
-uniform float Time;
+uniform sampler2D ScreenTexture;
 
 void main()
 {
-	FragColour = texture(RenderedTexture, UV + 0.005 * vec2(sin(Time + 1024.0 * UV.x), cos(Time + 768.0 * UV.y))).xyz;
-}
+    FragColor = vec4(texture(ScreenTexture, TexCoord).rgb, 1.0);
+} 
