@@ -21,7 +21,7 @@ Basic_Scene::Basic_Scene()
     this->angleMultiplier = 15.0f;
     this->renderTexWidth = 320;
     this->renderTexHeight = 240;
-    this->crateLocations = vector<vec3>
+    this->cratePositions = vector<vec3>
     {
         vec3(-4.0f, 0.5f, -1.0f),
         vec3(-1.0f, 0.5f, -2.0f),
@@ -31,6 +31,24 @@ Basic_Scene::Basic_Scene()
     {
         -33.0f, -80.0f, 10.0f
     };
+    this->barrelPositions = vector<vec3>
+    {
+        vec3(-3.5f, 0.0f, 2.25f),
+        vec3(-6.75f, 0.0f, -2.25f),
+        vec3(6.75f, 0.0f, -2.25f),
+        vec3(1.0f, 0.0f, -3.5f),
+        vec3(6.0f, 0.0f, 1.0f)
+    };
+    this->barrelRotations = vector<float>
+    {
+        -21.0f, 
+        45.0f, 
+        45.0f,
+        70.0f,
+        0.0f
+    };
+    this->objectPosition = vec3(0.0f, 0.0f, 0.0f);
+    this->objectRotation = 0.0f;
 }
 
 void Basic_Scene::Start(GLFWwindow* window)
@@ -58,6 +76,7 @@ void Basic_Scene::Start(GLFWwindow* window)
     road.Init(ObjMesh::Load("media/models/floor.obj"), vec3(0.25f), vec3(0.25f), vec3(0.25f), 256.0f, Texture::LoadTexturePtr("media/images/road.png"));
     buildings.Init(ObjMesh::Load("media/models/buildings.obj"), vec3(0.25f), vec3(0.25f), vec3(0.25f), 256.0f, Texture::LoadTexturePtr("media/images/buildingface.jpg"));
     crate.Init(new Cube(1.0f), vec3(0.25f), vec3(0.25f), vec3(0.25f), 256.0f, Texture::LoadTexturePtr("media/images/crate.jpg"));
+    barrel.Init(ObjMesh::Load("media/models/barrel.obj"), vec3(0.25f), vec3(0.25f), vec3(0.25f), 256.0f, Texture::LoadTexturePtr("media/images/barrel.png"));
 
     CompileShaders();
 
@@ -152,7 +171,10 @@ void Basic_Scene::Update(GLFWwindow* window, float deltaTime)
     light.position = vec4(debugWindow.lightPos[0], debugWindow.lightPos[1], debugWindow.lightPos[2], 1.0f);
     light.ambientIntensity = vec3(debugWindow.lightAmbient[0], debugWindow.lightAmbient[1], debugWindow.lightAmbient[2]);
     light.diffuseIntensity = vec3(debugWindow.lightDiffuse[0], debugWindow.lightDiffuse[1], debugWindow.lightDiffuse[2]);
-    light.specularIntensity = vec3(debugWindow.lightSpecular[0], debugWindow.lightSpecular[1], debugWindow.lightSpecular[2]);;
+    light.specularIntensity = vec3(debugWindow.lightSpecular[0], debugWindow.lightSpecular[1], debugWindow.lightSpecular[2]);
+
+    objectPosition = vec3(debugWindow.objectPos[0], debugWindow.objectPos[1], debugWindow.objectPos[2]);
+    objectRotation = debugWindow.objectRot[0];
 
     debugWindow.PerFrame();
 }
@@ -171,12 +193,20 @@ void Basic_Scene::Render()
     road.Render(prog, light, view, model, projection);
     buildings.Render(prog, light, view, model, projection);
 
-    for (unsigned int i = 0; i < 3; i++)
+    for (unsigned int i = 0; i < cratePositions.size(); i++)
     {
         model = mat4(1.0f);
-        model = glm::translate(model, crateLocations[i]);
+        model = glm::translate(model, cratePositions[i]);
         model = glm::rotate(model, glm::radians(crateRotations[i]), glm::vec3(0.0f, 1.0f, 0.0f));
         crate.Render(prog, light, view, model, projection);
+    }
+
+    for (unsigned int i = 0; i < barrelPositions.size(); i++)
+    {
+        model = mat4(1.0f);
+        model = glm::translate(model, barrelPositions[i]);
+        model = glm::rotate(model, glm::radians(barrelRotations[i]), glm::vec3(0.0f, 1.0f, 0.0f));
+        barrel.Render(prog, light, view, model, projection);
     }
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);

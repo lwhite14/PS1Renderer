@@ -14,11 +14,16 @@ private:
 	DebugWindow debugWindow;
 	GLSLProgram prog;
 	GLSLProgram quadProg;
-	RenderObj car, road, buildings, crate;
+	RenderObj car, road, buildings, crate, barrel;
 	PointLight light;
 
-	vector<vec3> crateLocations;
+	vector<vec3> cratePositions;
 	vector<float> crateRotations;
+	vector<vec3> barrelPositions;
+	vector<float> barrelRotations;
+
+	vec3 objectPosition;
+	float objectRotation;
 
 	float cameraSpeed;
 	float timer;
