@@ -3,11 +3,9 @@
 
 int main()
 {
-	//Runner runner = Runner("First-Person Render Pipeline", 800, 600);
-	Runner runner = Runner("Render Texture", 1600, 900);
+	Runner runner = Runner("First-Person Render Pipeline", 800, 600);
 	Scene* base;
-	//Basic_Scene derived;
-	RenderTexture_Scene derived;
+	Basic_Scene derived;
 	base = &derived;
 	return runner.Run(*base);
 }

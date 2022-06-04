@@ -9,10 +9,20 @@ class Basic_Scene : public Scene
 private:
 	DebugWindow debugWindow;
 	GLSLProgram prog;
+	GLSLProgram quadProg;
 	RenderObj car, road, buildings, crate;
 	PointLight light;
 
-	float cameraSpeed, timer, angleMultiplier, startAngle;
+	float cameraSpeed;
+	float timer;
+	float angleMultiplier;
+	float startAngle;
+
+	unsigned int renderTexWidth;
+	unsigned int renderTexHeight;
+	unsigned int framebuffer;
+	unsigned int quadVAO, quadVBO;
+	unsigned int textureColorbuffer;
 
 	void CompileShaders();
 public:
