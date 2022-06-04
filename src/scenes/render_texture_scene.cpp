@@ -4,6 +4,8 @@
 RenderTexture_Scene::RenderTexture_Scene() 
 {
     suzanne = ObjMesh::Load("media/models/suzanne.obj");
+    renderTexWidth = 320;
+    renderTexHeight = 240;
 }
 
 void RenderTexture_Scene::Start(GLFWwindow* window)
@@ -50,7 +52,7 @@ void RenderTexture_Scene::Start(GLFWwindow* window)
     //unsigned int textureColorbuffer;
     glGenTextures(1, &textureColorbuffer);
     glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, renderTexWidth, renderTexHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorbuffer, 0);
@@ -58,7 +60,7 @@ void RenderTexture_Scene::Start(GLFWwindow* window)
     unsigned int rbo;
     glGenRenderbuffers(1, &rbo);
     glBindRenderbuffer(GL_RENDERBUFFER, rbo);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height); // use a single renderbuffer object for both a depth AND stencil buffer.
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, renderTexWidth, renderTexHeight); // use a single renderbuffer object for both a depth AND stencil buffer.
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo); // now actually attach it
     // now that we actually created the framebuffer and added all attachments we want to check if it is actually complete now
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) 
@@ -102,6 +104,8 @@ void RenderTexture_Scene::Render()
     glClearColor(0.0f, 0.25f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    glViewport(0, 0, renderTexWidth, renderTexHeight);
+
     model = mat4(1.0f);
     model = glm::translate(model, vec3(0.0f, 0.0f, -5.0f));
     prog.Use();
@@ -118,6 +122,8 @@ void RenderTexture_Scene::Render()
     prog.SetUniform("ModelViewMatrix", mv);
     prog.SetUniform("NormalMatrix", glm::mat3(vec3(mv[0]), vec3(mv[1]), vec3(mv[2])));
     suzanne->Render();
+
+    glViewport(0, 0, width, height);
 
     // now bind back to default framebuffer and draw a quad plane with the attached framebuffer color texture
     glBindFramebuffer(GL_FRAMEBUFFER, 0);

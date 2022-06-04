@@ -10,6 +10,7 @@ private:
 	GLSLProgram quadProg;
 	ObjMesh* suzanne;
 
+	unsigned int renderTexWidth, renderTexHeight;
 	unsigned int framebuffer;
 	unsigned int quadVAO, quadVBO;
 	unsigned int textureColorbuffer;
