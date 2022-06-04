@@ -167,6 +167,7 @@
     <ClCompile Include="src\glslprogram.cpp" />
     <ClCompile Include="src\render_obj.cpp" />
     <ClCompile Include="src\scenes\basic_scene.cpp" />
+    <ClCompile Include="src\scenes\render_texture_scene.cpp" />
     <ClCompile Include="src\stb\stb_image.cpp" />
     <ClCompile Include="src\texture.cpp" />
   </ItemGroup>
@@ -193,6 +194,7 @@
     <ClInclude Include="src\render_obj.h" />
     <ClInclude Include="src\runner.h" />
     <ClInclude Include="src\scenes\basic_scene.h" />
+    <ClInclude Include="src\scenes\render_texture_scene.h" />
     <ClInclude Include="src\scenes\scene.h" />
     <ClInclude Include="src\shader.h" />
     <ClInclude Include="src\stb\stb_image.h" />
@@ -206,6 +208,8 @@
     <None Include="shaders\basic.vert" />
     <None Include="shaders\basic_lit.frag" />
     <None Include="shaders\basic_lit.vert" />
+    <None Include="shaders\quad.frag" />
+    <None Include="shaders\quad.vert" />
     <None Include="shaders\basic_textured.frag" />
     <None Include="shaders\basic_textured.vert" />
     <None Include="shaders\psx.frag" />
