@@ -8,12 +8,16 @@ out vec3 Position;
 out vec3 Normal;
 noperspective out vec2 TexCoord;
 noperspective out vec3 Colour;
+out float FogDensity;
 
 uniform mat4 ModelViewMatrix;
 uniform mat3 NormalMatrix;
 uniform mat4 MVP;
 
 uniform vec2 TargetResolution = vec2(320, 240);
+
+uniform float FogDepthMax = 6.0;
+uniform float FogDepthMin = 0.0;
 
 uniform struct LightInfo 
 {
@@ -58,6 +62,10 @@ void main()
 	Position = (ModelViewMatrix * vec4(VertexPosition,1.0)).xyz;
 	TexCoord = VertexTexCoord;
 	Colour = Lighting(Position, Normal);
+
+	vec4 depthVert = mul(ModelViewMatrix, vec4(VertexPosition, 1.0));
+	float depth = abs(depthVert.z / depthVert.w);
+	FogDensity = 1.0 - clamp((FogDepthMax - depth) / (FogDepthMin - FogDepthMax), 0.0, 1.0);
 
 	vec4 VertInClipSpace = MVP * vec4(VertexPosition,1.0); 
 	vec2 grid = TargetResolution.xy * 0.5;
