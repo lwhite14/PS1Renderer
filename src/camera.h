@@ -30,6 +30,8 @@ public:
 	Camera();
 	Camera(unsigned int SCR_WIDTH, unsigned int SCR_HEIGHT, vec3 startPos = vec3(0.0f));
 	void SetFront(GLFWwindow* window);
-	void SetYaw(float yaw);
 	mat4 ChangeViewMatrix(mat4 view);
+	void KeyCallback(GLFWwindow* window);
+	void MouseCallback(GLFWwindow* window);
+	void Movement(float deltaTime);
 };

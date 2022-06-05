@@ -158,11 +158,16 @@ void Basic_Scene::CompileShaders()
 
 void Basic_Scene::Update(GLFWwindow* window, float deltaTime)
 {
-
-    camera.SetYaw((glm::sin(timer) * angleMultiplier) + startAngle);
+    // For Final Camera Pan
+    camera.yaw = (glm::sin(timer) * angleMultiplier) + startAngle;
     timer = timer + (deltaTime * cameraSpeed);
-
     camera.SetFront(window);
+
+    // For Free Movement (Debug)
+    //camera.Movement(deltaTime);
+    //camera.KeyCallback(window);
+    //camera.MouseCallback(window);
+
     view = camera.ChangeViewMatrix(view);
 
     light.position = vec4(debugWindow.lightPos[0], debugWindow.lightPos[1], debugWindow.lightPos[2], 1.0f);
