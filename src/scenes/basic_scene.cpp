@@ -11,8 +11,8 @@ Basic_Scene::Basic_Scene()
     this->light = PointLight
     (
         vec4(-5.0f, 5.0f, 5.0f, 1.0f),
-        vec3(0.25f),
-        vec3(0.45f, 0.45f, 0.6f),
+        vec3(1.0f),
+        vec3(0.85f, 0.85f, 1.0f),
         vec3(0.0f)
     );
     this->cameraSpeed = 1.0f;
