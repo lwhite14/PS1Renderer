@@ -217,6 +217,8 @@ void Basic_Scene::Render()
     glViewport(0, 0, width, height);
 
     quadProg.Use();
+    quadProg.SetUniform("Resolution", vec2(width, height));
+    quadProg.SetUniform("Time", (float)glfwGetTime());
     glBindVertexArray(quadVAO);
     glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
     glDrawArrays(GL_TRIANGLES, 0, 6);
