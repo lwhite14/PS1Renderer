@@ -3,7 +3,7 @@
 
 int main()
 {
-	Runner runner = Runner("First-Person Render Pipeline", 1080, 864);
+	Runner runner = Runner("PS1 Renderer", 1200, 900);
 	Scene* base;
 	Basic_Scene derived;
 	base = &derived;
