@@ -6,7 +6,7 @@ layout (location = 2) in vec2 VertexTexCoord;
 
 out vec3 Position;
 out vec3 Normal;
-out vec2 TexCoord;
+noperspective out vec2 TexCoord;
 
 uniform mat4 ModelViewMatrix;
 uniform mat3 NormalMatrix;

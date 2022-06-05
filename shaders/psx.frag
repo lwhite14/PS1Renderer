@@ -2,7 +2,7 @@
 
 in vec3 Position;
 in vec3 Normal;
-in vec2 TexCoord;
+noperspective in vec2 TexCoord;
 
 layout( location = 0 ) out vec4 FragColor;
 
