@@ -3,54 +3,15 @@
 in vec3 Position;
 in vec3 Normal;
 noperspective in vec2 TexCoord;
+noperspective in vec3 Colour;
 
 layout( location = 0 ) out vec4 FragColor;
-
-uniform struct LightInfo 
-{
-	vec4 Position;	
-	vec3 La;
-	vec3 Ld;
-	vec3 Ls;
-} Light;
-
-uniform struct MaterialInfo 
-{
-	vec3 Ka;
-	vec3 Kd;
-	vec3 Ks;
-	float Shininess;
-} Material;
 
 uniform vec4 fogColour = vec4(0.4, 0.4, 0.4, 1.0);
 uniform float fogMaxDist = 20.0;
 uniform float fogMinDist = 0.25;
 
 uniform sampler2D Texture;
-
-vec3 blinnPhong( vec3 position, vec3 normal ) 
-{
-	// Get Tex Colour
-	vec3 texColour = texture(Texture, TexCoord).rgb;
-
-	// Ambient
-	vec3 ambient = Material.Ka * Light.La * texColour;
-
-	// Diffuse
-	vec3 s = normalize(vec3(Light.Position - vec4(position, 1.0f)));
-	float sDotN = max( dot(s,normal), 0.0 );
-	vec3 diffuse = Material.Kd * Light.Ld * sDotN * texColour;
-
-	// Specular
-	vec3 spec = vec3(0.0);
-	if( sDotN > 0.0 )
-	{
-		vec3 v = normalize(-position.xyz);
-		vec3 h = normalize( v + s ); 
-		spec = Material.Ks * pow( max( dot(h,normal), 0.0 ), Material.Shininess );
-	}
-	return ambient + diffuse + spec;
-}
 
 void main()
 {
@@ -59,7 +20,8 @@ void main()
 	float fogFactor = (fogMaxDist - dist) / (fogMaxDist - fogMinDist);
 	fogFactor = clamp(fogFactor, 0.0, 1.0);
 	       
-	vec4 shadedFragment = vec4(blinnPhong(Position, normalize(Normal)), 1.0f);
-	vec4 fogFragment = mix(fogColour, vec4(blinnPhong(Position, normalize(Normal)), 1.0f), fogFactor);
+	vec4 textureFragment = texture(Texture, TexCoord);
+	vec4 shadedFragment = textureFragment * vec4(Colour, 1.0);
+	vec4 fogFragment = mix(fogColour, shadedFragment, fogFactor);
 	FragColor = fogFragment;
 }

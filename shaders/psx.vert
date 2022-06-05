@@ -7,6 +7,7 @@ layout (location = 2) in vec2 VertexTexCoord;
 out vec3 Position;
 out vec3 Normal;
 noperspective out vec2 TexCoord;
+noperspective out vec3 Colour;
 
 uniform mat4 ModelViewMatrix;
 uniform mat3 NormalMatrix;
@@ -14,13 +15,51 @@ uniform mat4 MVP;
 
 uniform vec2 TargetResolution = vec2(320, 240);
 
+uniform struct LightInfo 
+{
+	vec4 Position;	
+	vec3 La;
+	vec3 Ld;
+	vec3 Ls;
+} Light;
+
+uniform struct MaterialInfo 
+{
+	vec3 Ka;
+	vec3 Kd;
+	vec3 Ks;
+	float Shininess;
+} Material;
+
+vec3 Lighting( vec3 position, vec3 normal ) 
+{
+	// Ambient
+	vec3 ambient = Material.Ka * Light.La;
+
+	// Diffuse
+	vec3 s = normalize(vec3(Light.Position - vec4(position, 1.0f)));
+	float sDotN = max( dot(s,normal), 0.0 );
+	vec3 diffuse = Material.Kd * Light.Ld * sDotN;
+
+	// Specular
+	vec3 spec = vec3(0.0);
+	if( sDotN > 0.0 )
+	{
+		vec3 v = normalize(-position.xyz);
+		vec3 h = normalize( v + s ); 
+		spec = Material.Ks * pow( max( dot(h,normal), 0.0 ), Material.Shininess );
+	}
+	return ambient + diffuse + spec;
+}
+
 void main() 
 { 
 	Normal = normalize( NormalMatrix * VertexNormal);
 	Position = (ModelViewMatrix * vec4(VertexPosition,1.0)).xyz;
 	TexCoord = VertexTexCoord;
-	vec4 VertInClipSpace = MVP * vec4(VertexPosition,1.0); 
+	Colour = Lighting(Position, Normal);
 
+	vec4 VertInClipSpace = MVP * vec4(VertexPosition,1.0); 
 	vec2 grid = TargetResolution.xy * 0.5;
 	vec4 snapped = VertInClipSpace;
 	snapped.xyz = VertInClipSpace.xyz / VertInClipSpace.w;
